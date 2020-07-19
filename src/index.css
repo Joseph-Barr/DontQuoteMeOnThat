@@ -74,6 +74,7 @@ code {
 
 .navbar-element > a:hover {
   color: currentColor;
+  text-decoration: none;
 }
 
 .navbar-element > a:before {
@@ -92,4 +93,16 @@ code {
 .navbar-element > a:hover:before {
   visibility: visible;
   transform: scaleX(1);
+}
+
+.loginFormContainer {
+  width: 100vw;
+  padding-top: 50px;
+  display: inline-block;
+}
+
+.formCenter {
+  width: 50%;
+  display: inline-block;
+  align-items: center;
 }
