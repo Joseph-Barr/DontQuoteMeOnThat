@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Quote from '../components/quote';
-import { API_URL } from '../config';
+import Quote from '../../components/quote';
+import { API_URL } from '../../config';
 import { Button } from 'reactstrap';
 
 export default class QuotePage extends Component {

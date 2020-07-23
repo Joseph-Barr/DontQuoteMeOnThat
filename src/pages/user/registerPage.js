@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { API_URL } from "../config";
-import {redirectTo} from '../functions';
+import { API_URL } from "../../config";
+import {redirectTo} from '../../functions';
 
 
 export default class RegisterPage extends Component { 
@@ -87,7 +87,7 @@ export default class RegisterPage extends Component {
                         <Label> Confirm Password: <Input name = "confPassword" type = "password" value={this.state.confPassword} onChange = {this.handleChange} /></Label>
                     </FormGroup>
                     <FormGroup>
-                        <Button color = "primary" onClick = {this.handleSubmit} >Submit </Button> 
+                        <Button color = "primary" onClick = {this.handleSubmit}> Submit </Button> 
                     </FormGroup>
                 </Form>
                 {

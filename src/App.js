@@ -4,10 +4,10 @@ import './App.css';
 import { Route, Switch } from "react-router";
 import Quote from './components/quote';
 import Navbar from './components/navbar';
-import LoginPage from './pages/loginPage';
-import RegisterPage from './pages/registerPage';
-import QuotePage from './pages/quotePage';
-import ProfilePage from './pages/myQuotesPage';
+import LoginPage from './pages/user/loginPage';
+import RegisterPage from './pages/user/registerPage';
+import QuotePage from './pages/quote/quotePage';
+import ProfilePage from './pages/quote/myQuotesPage';
 
 
 

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import {API_URL} from '../config';
+import {API_URL} from '../../config';
 //import jwt from 'jsonwebtoken';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
-import {redirectTo} from '../functions';
+import {redirectTo} from '../../functions';
 
 export default class LoginPage extends Component {
     constructor(props) {
