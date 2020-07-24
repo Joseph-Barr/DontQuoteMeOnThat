@@ -12,7 +12,7 @@ export default class ProfilePage extends Component {
             resStatus: 0,
             quotes: []
         }
-        this.getAllUserQuotes = this.getAllUserQuotes.bind(this);
+        //this.getAllUserQuotes = this.getAllUserQuotes.bind(this);
         this.getAllUserQuotes();
 
         //this.deleteQuote = this.deleteQuote.bind(this);
@@ -34,7 +34,6 @@ export default class ProfilePage extends Component {
             this.setState({
                 quotes: data.quotes
             });
-            console.log(this.state.quotes);
         })
     }
 
@@ -49,13 +48,10 @@ export default class ProfilePage extends Component {
         fetch((API_URL + '/quote/delete/' + quoteID), headers)
         .then(res => res.json())
         .then(res => {
-            console.log(res);
-
             // Update state, cause re-rendering of component
             this.setState({
                 quotes: this.state.quotes.filter(quote => quote._id !== quoteID)
             });
-            console.log(this.state.quotes);
         })
         .catch((err) => {
             console.log(err);
@@ -103,7 +99,7 @@ export default class ProfilePage extends Component {
                     </Col>
                 </Row>
                 <Container>
-                    { this.state.quotes.map(quote => <EditableQuote key = { quote._id } id = { quote._id } value = { quote._id } text = {quote.text} by = {quote.by} year = {quote.year} editHandler = { this.editQuote } deleteHandler = { this.deleteQuote } />) }
+                    { this.state.quotes.map(quote => <EditableQuote key = { quote._id } id = { quote._id } value = { quote._id } text = {quote.text} by = {quote.by} year = {quote.year} public = {quote.public} editHandler = { this.editQuote } deleteHandler = { this.deleteQuote } />) }
                 </Container>
             </div>
         )

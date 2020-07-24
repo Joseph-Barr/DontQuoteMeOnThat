@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input, FormGroup } from 'reactstrap';
 
-const CreateQuoteModal = (props) => {
+// Similar to createQuoteModal, except that it takes additional props to define the values of the form fields
+const EditQuoteModal = (props) => {
 	// Store props
 	const {
 	buttonLabel,
 	className,
-	reactButtonColor,
-	createHandler
+	editHandler,
+	// This prop defines the default values for the quote, must be a JSON parsable string
+	jsonParsableQuote
 	} = props;
 
-	const currentYear = new Date().getFullYear();
+	const getQuoteObj = () => {
+		return JSON.parse(jsonParsableQuote);
+	}
 
 	// Hooks to keep track of state
 	const [modal, setModal] = useState(false);
 	// Init default state values
-	const [newQuote, setNewQuote] = useState({
-		year: currentYear,
-		public: true
-	});
+	const [newQuote, setNewQuote] = useState(
+		// Set all values here
+		getQuoteObj
+	);
 
 	const [stringified, setStringified] = useState(JSON.stringify(newQuote));
 
 	const toggle = () => setModal(!modal);
 
 	const submitClick = (event) => {
-		createHandler(event);
+		editHandler(event);
 		toggle();
 	}
 
@@ -44,7 +48,7 @@ const CreateQuoteModal = (props) => {
 
 	return (
 	<div>
-	  <Button color={reactButtonColor} onClick={toggle}>{buttonLabel}</Button>
+	  <Button color='primary' onClick={toggle}>{buttonLabel}</Button>
 	  <Modal isOpen={modal} toggle={toggle} className={className}>
 	  	<ModalHeader toggle={toggle}><b>New Quote</b></ModalHeader>
 	    <ModalBody>
@@ -68,7 +72,7 @@ const CreateQuoteModal = (props) => {
 	    	</Form>
 	    </ModalBody>
 	    <ModalFooter>
-	      <Button color="success" onClick = {submitClick} value = { stringified }> Create </Button>{' '}
+	      <Button color="primary" onClick = {submitClick} value = { stringified }> Save </Button>{' '}
 	      <Button color="secondary" onClick = {toggle} > Cancel </Button>
 	    </ModalFooter>
 	  </Modal>
@@ -76,4 +80,4 @@ const CreateQuoteModal = (props) => {
 	);
 }
 
-export default CreateQuoteModal;
+export default EditQuoteModal;
