@@ -27,7 +27,7 @@ const CreateQuoteModal = (props) => {
 	const submitClick = (event) => {
 		createHandler(event);
 		toggle();
-	}
+	};
 
 	const handleChange = (event) => {
 		event.preventDefault();
@@ -40,7 +40,7 @@ const CreateQuoteModal = (props) => {
 		}
 		setNewQuote(newState);
 		setStringified(JSON.stringify(newState));
-	}
+	};
 
 	return (
 	<div>

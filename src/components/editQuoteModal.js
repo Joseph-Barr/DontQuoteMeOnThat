@@ -14,7 +14,7 @@ const EditQuoteModal = (props) => {
 
 	const getQuoteObj = () => {
 		return JSON.parse(jsonParsableQuote);
-	}
+	};
 
 	// Hooks to keep track of state
 	const [modal, setModal] = useState(false);
@@ -31,7 +31,7 @@ const EditQuoteModal = (props) => {
 	const submitClick = (event) => {
 		editHandler(event);
 		toggle();
-	}
+	};
 
 	const handleChange = (event) => {
 		event.preventDefault();

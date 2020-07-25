@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Container, Row, Col } from 'reactstrap';
-import {API_URL} from '../config';
+import { Button, Row, Col, ButtonGroup } from 'reactstrap';
 import EditQuoteModal from './editQuoteModal';
 
 
@@ -33,8 +32,10 @@ export default class EditableQuote extends Component {
 						{this.state.quote.by + ", " + this.state.quote.year}
 					</Col>
 					<Col className = 'col-sm-4'>
-						<EditQuoteModal buttonLabel = 'Edit' editHandler = {this.props.editHandler} jsonParsableQuote = {JSON.stringify(this.state.quote)} />
-					 	<Button color = 'danger' onClick = { this.props.deleteHandler } value = {this.state.quote.id} > Delete </Button>
+						<ButtonGroup>
+							<EditQuoteModal buttonLabel = 'Edit' editHandler = {this.props.editHandler} jsonParsableQuote = {JSON.stringify(this.state.quote)} />
+							<Button color = 'danger' onClick = { this.props.deleteHandler } value = {this.state.quote.id} > Delete </Button>
+						 </ButtonGroup>
 					</Col>
 				</Row>
 		)

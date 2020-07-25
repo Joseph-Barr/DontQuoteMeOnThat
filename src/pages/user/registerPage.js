@@ -14,7 +14,7 @@ export default class RegisterPage extends Component {
             confPassword: "",
             reqErr: {},
             redirectPath: ''
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,7 +45,7 @@ export default class RegisterPage extends Component {
                 // Password cant be encrypted clientside ??? 
                 "password": password
               })
-        }
+        };
 
         return fetch(reqURL, reqOptions)
         .then((res) => {
@@ -54,12 +54,12 @@ export default class RegisterPage extends Component {
             } else { 
                 this.setState({reqErr: {errCode: res.status, errMsg: res.message}})
             }
-        })
+        });
     }
 
     render() {
         return (
-            <div style = {{ paddingTop: "20px"}}>
+            <div style = {{ paddingTop: "20px"}} align = 'center'>
                 <h2> Register Now: </h2>
                 {
                     this.state.reqErr.errCode === 400 && 
@@ -76,7 +76,7 @@ export default class RegisterPage extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                             <Label>
-                                Email: 
+                                Username: 
                                 <Input name = "username" type="text" value={this.state.username} onChange={this.handleChange} />
                             </Label>
                         </FormGroup>
