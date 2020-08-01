@@ -6,6 +6,7 @@ const EditQuoteModal = (props) => {
 	// Store props
 	const {
 	buttonLabel,
+	size,
 	className,
 	editHandler,
 	// This prop defines the default values for the quote, must be a JSON parsable string
@@ -47,15 +48,17 @@ const EditQuoteModal = (props) => {
 		} else {
 			newState[event.target.id] = event.target.value;
 		}
+		// Update the new quote state
 		setNewQuote(newState);
+		// Update the state of the save button
 		setStringified(JSON.stringify(newState));
 	}
 
 	return (
 	<div>
-	  <Button color='primary' onClick={toggle}>{buttonLabel}</Button>
+	  <Button color='primary' size = {size} onClick={toggle}>{buttonLabel}</Button>
 	  <Modal isOpen={modal} toggle={toggle} className={className}>
-	  	<ModalHeader toggle={toggle}><b>New Quote</b></ModalHeader>
+	  	<ModalHeader toggle={toggle}><b>Edit Quote</b></ModalHeader>
 	    <ModalBody>
 	    	<Form>
 	    		<FormGroup>

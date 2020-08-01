@@ -7,7 +7,8 @@ const CreateQuoteModal = (props) => {
 	buttonLabel,
 	className,
 	reactButtonColor,
-	createHandler
+	createHandler,
+	size
 	} = props;
 
 	const currentYear = new Date().getFullYear();
@@ -44,7 +45,7 @@ const CreateQuoteModal = (props) => {
 
 	return (
 	<div>
-	  <Button color={reactButtonColor} onClick={toggle}>{buttonLabel}</Button>
+	  <Button color={reactButtonColor} size = {size} onClick={toggle}>{buttonLabel}</Button>
 	  <Modal isOpen={modal} toggle={toggle} className={className}>
 	  	<ModalHeader toggle={toggle}><b>New Quote</b></ModalHeader>
 	    <ModalBody>

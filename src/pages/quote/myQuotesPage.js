@@ -34,12 +34,13 @@ export default class ProfilePage extends Component {
                         {
                             headerName: 'Edit',
                             cellRenderer: 'editBtnCellRenderer',
-                    
-                        },
-
-                    
+                            cellRendererParams: {
+                                editHandler: this.editQuote
+                            }
+                        }
                     ]
         };
+        
         //this.getAllUserQuotes = this.getAllUserQuotes.bind(this);
         this.getAllUserQuotes();
 
@@ -125,31 +126,37 @@ export default class ProfilePage extends Component {
         const reqBody = event.target.value;
         // Remove any unchanged fields here
         
-
         const quoteID = JSON.parse(reqBody)._id;
         const options = {
             method: 'POST',
             headers: { "Accept": "application/json", "Content-Type": "application/json", 'Authorization': ('Bearer ' + localStorage.token) },
             body: reqBody
         }
-        console.log(reqBody);
 
         fetch(API_URL + '/quote/edit/' + quoteID, options)
         .then(res => {this.setState({resStatus: res.status}); return res;})
-        .then(res => {console.log(res); return res;})
         .then((res) => res.json())
         .then(res => {
-            // Copy current state
-            let newState = this.state.quotes;
-            // Get the index of the updated item in the current state
-            const quoteIndex = newState.findIndex(quote => quote._id === quoteID );
+            if (this.state.resStatus === 200) {
+                // Copy current state
+                let newState = this.state.quotes;
+                // Get the index of the updated item in the current state
+                const quoteIndex = newState.findIndex(quote => quote._id === quoteID);
 
-            // Update values
-            Object.keys(newState[quoteIndex]).forEach(key => newState[quoteIndex][key] = res.values[key]);
-            // Push change
-            this.setState({quotes: newState});
+                // Update Values
+                Object.keys(newState[quoteIndex]).forEach(key => newState[quoteIndex][key] = res.values[key]);
 
-            console.log(res);
+                // Set the _id and creator as they are seperate to the returned new values
+                newState[quoteIndex]._id = res.updated._id;
+                newState[quoteIndex].creator = res.updated.creator;
+
+                // Push change
+                this.setState({quotes: newState});
+                this.state.gridOptions.api.refreshCells();
+            } else {
+                // Error Message
+            }
+            
         })
         .catch(err => {
             console.log(err);
@@ -160,6 +167,9 @@ export default class ProfilePage extends Component {
         if (localStorage.token === undefined) {
             redirectTo('/login');
         }
+
+
+
         return (
 
             <div
