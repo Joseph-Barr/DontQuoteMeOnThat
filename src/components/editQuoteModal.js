@@ -13,7 +13,12 @@ const EditQuoteModal = (props) => {
 	} = props;
 
 	const getQuoteObj = () => {
-		return JSON.parse(jsonParsableQuote);
+		if (jsonParsableQuote) {
+			return JSON.parse(jsonParsableQuote);
+		} else {
+			return '';
+		}
+		
 	};
 
 	// Hooks to keep track of state
