@@ -110,3 +110,9 @@ code {
 .editQuoteRow {
 	padding: 20px;
 }
+
+.profileGrid {
+  width: 80%;
+  height: 500px;
+  padding: 50px;
+}

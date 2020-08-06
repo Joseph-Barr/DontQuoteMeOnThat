@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import EditableQuote from '../../components/editableQuote';
-import CreateQuoteModal from '../../components/createQuoteModal';
 import EditBtnCellRenderer from '../../components/EditButtonCellRenderer';
+import DeleteBtnCellRenderer from '../../components/deleteBtnCellRenderer';
 import { API_URL } from '../../config';
 
-import { Button, Container, Row, Col } from 'reactstrap';
 import { redirectTo } from '../../functions';
 
 // AG Grid
 import { AgGridReact } from 'ag-grid-react';
+import CreateQuoteModal from '../../components/createQuoteModal';
 
 
 export default class ProfilePage extends Component {
@@ -20,9 +19,17 @@ export default class ProfilePage extends Component {
             gridOptions: {
                 frameworkComponents: {
                     editBtnCellRenderer: EditBtnCellRenderer,
-                }
+                    deleteBtnCellRenderer: DeleteBtnCellRenderer
+                },
+                defaultColDef: {
+                    resizable: true
+                },
             },
-            columnDefs: [{
+            columnDefs: [
+                        {
+                            headerName: "_id", field: "_id"
+                        },
+                        {
                             headerName: "Quote", field: "text"
                         },
                         {
@@ -37,6 +44,13 @@ export default class ProfilePage extends Component {
                             cellRendererParams: {
                                 editHandler: this.editQuote
                             }
+                        },
+                        {
+                            headerName: 'Delete',
+                            cellRenderer: 'deleteBtnCellRenderer',
+                            cellRendererParams: {
+                                deleteHandler: this.deleteQuote
+                            }
                         }
                     ]
         };
@@ -44,7 +58,7 @@ export default class ProfilePage extends Component {
         //this.getAllUserQuotes = this.getAllUserQuotes.bind(this);
         this.getAllUserQuotes();
 
-        //this.deleteQuote = this.deleteQuote.bind(this);
+        // Make _id invisible
     }
 
     getAllUserQuotes() {
@@ -53,7 +67,6 @@ export default class ProfilePage extends Component {
             accept: "application/json",
             "Content-Type": "application/json",
         };
-        console.log(headers);
         fetch(API_URL + "/quote/user/all", {headers})
         .then(res => {
             this.setState({resStatus: res.status});
@@ -85,6 +98,7 @@ export default class ProfilePage extends Component {
             this.setState({
                 quotes: this.state.quotes.filter(quote => quote._id !== quoteID)
             });
+            this.state.gridOptions.api.refreshCells();
         })
         .catch((err) => {
             console.log(err);
@@ -95,7 +109,6 @@ export default class ProfilePage extends Component {
     createQuote = event => {
         // Quote body will only parse the values for text, by, year and public. All other fields will be ignored
         const reqBody = event.target.value;
-        console.log(reqBody);
         const options = {
             method: 'POST',
             headers: { "Accept": "application/json", "Content-Type": "application/json", 'Authorization': ('Bearer ' + localStorage.token) },
@@ -106,15 +119,15 @@ export default class ProfilePage extends Component {
         .then(res => {this.setState({resStatus: res.status}); return res})
         .then((res) => res.json())
         .then(res => {
-            console.log(res);
             if (this.state.resStatus === 200) {
                 // Read state
                 let newQuoteState = this.state.quotes;
                 newQuoteState.unshift(res.quote);
-                console.log(newQuoteState);
 
                 // Update state with quote
                 this.setState({quotes: newQuoteState});
+                // Attempt to update row 0
+                this.state.gridOptions.api.applyTransaction({add: [res.quote]});
             }
         })
         .catch(err => {
@@ -171,40 +184,24 @@ export default class ProfilePage extends Component {
 
 
         return (
-
-            <div
-                className="ag-theme-alpine"
-                style={{
-                height: '250px',
-                width: '600px' }}
-              >
-                <AgGridReact
-                    gridOptions = { this.state.gridOptions }
-                    columnDefs={this.state.columnDefs}
-                    rowData={this.state.quotes}>
-                </AgGridReact>
+            <div align = 'center'> 
+                <div className = 'profileGrid'>
+                    <div
+                        className="ag-theme-alpine"
+                        style={{
+                        height: '75%',
+                        width: '100%'}}
+                    >
+                        <AgGridReact
+                            gridOptions = { this.state.gridOptions }
+                            columnDefs = {this.state.columnDefs}
+                            rowData = {this.state.quotes}>
+                        </AgGridReact>
+                    </div>
+                </div>
+                <CreateQuoteModal buttonLabel = 'Create' reactButtonColor = 'success' createHandler = { this.createQuote } size = 'lg' />
             </div>
 
         )
     }
 }
-/*
-            <div>
-                <h1> Your Quotes: </h1>
-                {
-                    this.state.quotes.length <= 0 && 
-                    <div className = "alert alert-danger" role="alert" align = 'center'>
-                        You haven't quoted anything yet
-                    </div>
-                }
-                <Row>
-                    <Col align = 'center' style = {{padding: '20px'}}>
-                        <CreateQuoteModal reactButtonColor = 'success' buttonLabel = 'New Quote' createHandler = {this.createQuote}/>
-                    </Col>
-                </Row>
-                <Container>
-                    { this.state.quotes.map(quote => <EditableQuote key = { quote._id } id = { quote._id } value = { quote._id } text = {quote.text} by = {quote.by} year = {quote.year} public = {quote.public} editHandler = { this.editQuote } deleteHandler = { this.deleteQuote } />) }
-                </Container>
-            </div>
-
-            */
