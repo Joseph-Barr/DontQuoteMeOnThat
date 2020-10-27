@@ -16,7 +16,7 @@ export default class ProfilePage extends Component {
         this.state = {
             resStatus: 0,
             quotes: [],
-            gridOptions: {
+            gridOptions: { // Controls for the AG Grid
                 frameworkComponents: {
                     editBtnCellRenderer: EditBtnCellRenderer,
                     deleteBtnCellRenderer: DeleteBtnCellRenderer
@@ -24,10 +24,14 @@ export default class ProfilePage extends Component {
                 defaultColDef: {
                     resizable: true
                 },
+                onGridReady: function(params) {
+                    // Make the ID invisible
+                    params.columnApi.setColumnVisible('_id', false);
+                },
             },
             columnDefs: [
                         {
-                            headerName: "_id", field: "_id"
+                            headerName: "_id", field: "_id", supressToolPanel: true
                         },
                         {
                             headerName: "Quote", field: "text"
@@ -57,8 +61,6 @@ export default class ProfilePage extends Component {
         
         //this.getAllUserQuotes = this.getAllUserQuotes.bind(this);
         this.getAllUserQuotes();
-
-        // Make _id invisible
     }
 
     getAllUserQuotes() {
@@ -77,6 +79,7 @@ export default class ProfilePage extends Component {
             // When rows are actually returned
             if (data.quotes !== undefined) {
                 this.setState({
+                    // Set the quotes in the state to the returned results, latest quote first
                     quotes: data.quotes.reverse()
                 });
             }
@@ -96,6 +99,7 @@ export default class ProfilePage extends Component {
         .then(res => {
             // Update state, cause re-rendering of component
             this.setState({
+                // Filter the stored quotes, only keeping quotes where _id is not the requested ID
                 quotes: this.state.quotes.filter(quote => quote._id !== quoteID)
             });
             this.state.gridOptions.api.refreshCells();
@@ -126,7 +130,8 @@ export default class ProfilePage extends Component {
 
                 // Update state with quote
                 this.setState({quotes: newQuoteState});
-                // Attempt to update row 0
+
+                // Queue a transaction to update row 0 of the table
                 this.state.gridOptions.api.applyTransaction({add: [res.quote]});
             }
         })
@@ -180,8 +185,6 @@ export default class ProfilePage extends Component {
         if (localStorage.token === undefined) {
             redirectTo('/login');
         }
-
-
 
         return (
             <div align = 'center'> 

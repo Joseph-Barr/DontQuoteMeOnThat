@@ -10,6 +10,7 @@ import LoginPage from './pages/user/loginPage';
 import RegisterPage from './pages/user/registerPage';
 import QuotePage from './pages/quote/quotePage';
 import ProfilePage from './pages/quote/myQuotesPage';
+import QuoteLinkPage from './pages/quote/quoteLinkPage';
 
 
 
@@ -20,7 +21,7 @@ function App() {
         <Navbar />
         <Switch>
         <Route path="/quote/:id">
-            <h1> Custom link </h1>
+            <QuoteLinkPage />
           </Route>
           <Route path="/quote">
             <QuotePage />

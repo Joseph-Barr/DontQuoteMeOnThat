@@ -116,3 +116,32 @@ code {
   height: 500px;
   padding: 50px;
 }
+
+.quoteCardWrapper {
+  padding: 20px;
+}
+
+.quoteCardLink:hover {
+  filter: drop-shadow(0 0 0.05rem black);
+}
+
+.quoteCardRow {
+  padding-bottom: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.quoteCardTitle h1 {
+  font-weight: 800;
+}
+
+a.noStyle:link {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+a.noStyle:visited {
+  text-decoration: inherit;
+  color: inherit;
+}
+
