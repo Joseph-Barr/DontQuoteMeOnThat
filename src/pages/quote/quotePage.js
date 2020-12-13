@@ -70,9 +70,9 @@ export default class QuotePage extends Component {
                         <Row key = {index.toString()} className = 'quoteCardRow'>
                             {row.map(item => {
                                 if (item !== undefined) {
-                                    console.log(item._id);
-                                    return (<Col key = {item._id}>
-                                                <QuoteCard _id = {item._id} text = {item.text} by = {item.by} year = {item.year} />
+                                    console.log(item.id);
+                                    return (<Col key = {item.id}>
+                                                <QuoteCard id = {item.id} text = {item.text} by = {item.by} year = {item.year} />
                                             </Col>)
                                 } else {
                                     return("");

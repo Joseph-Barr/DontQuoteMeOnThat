@@ -11,7 +11,7 @@ export default class EditableQuote extends Component {
 		this.props = props;
 		this.state = {
 			quote: {
-				_id: props.id,
+				id: props.id,
 				text: props.text,
 				by: props.by,
 				year: props.year,

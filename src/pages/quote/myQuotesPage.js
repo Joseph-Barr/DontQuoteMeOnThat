@@ -26,12 +26,12 @@ export default class ProfilePage extends Component {
                 },
                 onGridReady: function(params) {
                     // Make the ID invisible
-                    params.columnApi.setColumnVisible('_id', false);
+                    params.columnApi.setColumnVisible('id', false);
                 },
             },
             columnDefs: [
                         {
-                            headerName: "_id", field: "_id", supressToolPanel: true
+                            headerName: "id", field: "id", supressToolPanel: true
                         },
                         {
                             headerName: "Quote", field: "text"
@@ -99,8 +99,8 @@ export default class ProfilePage extends Component {
         .then(res => {
             // Update state, cause re-rendering of component
             this.setState({
-                // Filter the stored quotes, only keeping quotes where _id is not the requested ID
-                quotes: this.state.quotes.filter(quote => quote._id !== quoteID)
+                // Filter the stored quotes, only keeping quotes where id is not the requested ID
+                quotes: this.state.quotes.filter(quote => quote.id !== quoteID)
             });
             this.state.gridOptions.api.refreshCells();
         })
@@ -144,7 +144,7 @@ export default class ProfilePage extends Component {
         const reqBody = event.target.value;
         // Remove any unchanged fields here
         
-        const quoteID = JSON.parse(reqBody)._id;
+        const quoteID = JSON.parse(reqBody).id;
         const options = {
             method: 'POST',
             headers: { "Accept": "application/json", "Content-Type": "application/json", 'Authorization': ('Bearer ' + localStorage.token) },
@@ -159,13 +159,13 @@ export default class ProfilePage extends Component {
                 // Copy current state
                 let newState = this.state.quotes;
                 // Get the index of the updated item in the current state
-                const quoteIndex = newState.findIndex(quote => quote._id === quoteID);
+                const quoteIndex = newState.findIndex(quote => quote.id === quoteID);
 
                 // Update Values
                 Object.keys(newState[quoteIndex]).forEach(key => newState[quoteIndex][key] = res.values[key]);
 
-                // Set the _id and creator as they are seperate to the returned new values
-                newState[quoteIndex]._id = res.updated._id;
+                // Set the id and creator as they are seperate to the returned new values
+                newState[quoteIndex].id = res.updated.id;
                 newState[quoteIndex].creator = res.updated.creator;
 
                 // Push change

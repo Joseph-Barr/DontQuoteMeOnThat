@@ -13,7 +13,7 @@ export default class DeleteBtnCellRenderer extends Component {
 
     render() {
       return (
-        <Button color = 'danger' size = 'sm' onClick = { this.props.deleteHandler } value = { this.props.data._id }> Delete </Button>
+        <Button color = 'danger' size = 'sm' onClick = { this.props.deleteHandler } value = { this.props.data.id }> Delete </Button>
       )
     }
 }

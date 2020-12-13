@@ -11,7 +11,7 @@ export default class QuoteLinkPage extends Component {
                 text: 'Getting Quote...',
                 by: '',
                 year: 0,
-                _id: ''
+                id: ''
             }
         }
     }
