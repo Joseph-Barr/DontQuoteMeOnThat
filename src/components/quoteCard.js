@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardBody, CardTitle, CardSubtitle, CardText, CardImg, Button} from 'reactstrap';
+import {Card, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
 
 
 export default function QuoteCard(props) {

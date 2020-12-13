@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Quote from '../../components/quote';
 import { API_URL } from '../../config';
-import { Button, Row, Col, Card, CardTitle, CardText, Jumbotron } from 'reactstrap';
+import { Row, Col, Jumbotron } from 'reactstrap';
 import QuoteCard from '../../components/quoteCard';
 
 export default class QuotePage extends Component {
@@ -11,6 +10,7 @@ export default class QuotePage extends Component {
             quotes: []
         }
         this.getRandomQuote = this.getRandomQuote.bind(this);
+        this.createCards = this.createCards.bind(this);
 
         this.getQuoteList();
 
@@ -61,7 +61,6 @@ export default class QuotePage extends Component {
                 this.state.quotes[i + 2]
             ]
             rows.push(temp);
-
         }
         
         return (
@@ -70,10 +69,14 @@ export default class QuotePage extends Component {
                     return (
                         <Row key = {index.toString()} className = 'quoteCardRow'>
                             {row.map(item => {
-                                console.log(item._id);
-                                return (<Col key = {item._id}>
-                                            <QuoteCard _id = {item._id} text = {item.text} by = {item.by} year = {item.year} />
-                                        </Col>)
+                                if (item !== undefined) {
+                                    console.log(item._id);
+                                    return (<Col key = {item._id}>
+                                                <QuoteCard _id = {item._id} text = {item.text} by = {item.by} year = {item.year} />
+                                            </Col>)
+                                } else {
+                                    return("");
+                                }
                             })}
                         </Row>
                     )

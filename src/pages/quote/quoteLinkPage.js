@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef } from 'react';
+import React, { Component } from 'react';
 import {Jumbotron, Button} from 'reactstrap';
 import { API_URL } from '../../config';
 

@@ -182,7 +182,7 @@ export default class ProfilePage extends Component {
     }
 
     render() {
-        if (localStorage.token === undefined) {
+        if (localStorage.token === undefined || localStorage.token === 'undefined') {
             redirectTo('/login');
         }
 
