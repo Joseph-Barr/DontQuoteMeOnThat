@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import EditBtnCellRenderer from '../../components/EditButtonCellRenderer';
 import DeleteBtnCellRenderer from '../../components/deleteBtnCellRenderer';
-import { API_URL } from '../../config';
 
 import { redirectTo } from '../../functions';
 
@@ -69,7 +68,7 @@ export default class ProfilePage extends Component {
             accept: "application/json",
             "Content-Type": "application/json",
         };
-        fetch(API_URL + "/quote/user/all", {headers})
+        fetch(process.env.REACT_APP_API_URL + "/quote/user/all", {headers})
         .then(res => {
             this.setState({resStatus: res.status});
             return res;
@@ -94,7 +93,7 @@ export default class ProfilePage extends Component {
         };
 
 
-        fetch((API_URL + '/quote/delete/' + quoteID), headers)
+        fetch((process.env.REACT_APP_API_URL + '/quote/delete/' + quoteID), headers)
         .then(res => res.json())
         .then(res => {
             // Update state, cause re-rendering of component
@@ -119,7 +118,7 @@ export default class ProfilePage extends Component {
             body: reqBody
         };
 
-        fetch(API_URL + '/quote/create', options)
+        fetch(process.env.REACT_APP_API_URL + '/quote/create', options)
         .then(res => {this.setState({resStatus: res.status}); return res})
         .then((res) => res.json())
         .then(res => {
@@ -151,7 +150,7 @@ export default class ProfilePage extends Component {
             body: reqBody
         }
 
-        fetch(API_URL + '/quote/edit/' + quoteID, options)
+        fetch(process.env.REACT_APP_API_URL + '/quote/edit/' + quoteID, options)
         .then(res => {this.setState({resStatus: res.status}); return res;})
         .then((res) => res.json())
         .then(res => {

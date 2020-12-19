@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import {API_URL} from '../../config';
 //import jwt from 'jsonwebtoken';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import {redirectTo} from '../../functions';
@@ -34,7 +33,8 @@ export default class LoginPage extends Component {
     }
 
      async login(username, password) {
-        const url = API_URL + '/user/login';
+        const url = process.env.REACT_APP_API_URL + '/user/login';
+        console.log(url);
         const requestOptions = {
             method: "POST",
             headers: { "Accept": "application/json", "Content-Type": "application/json"},

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { API_URL } from "../../config";
 import {redirectTo} from '../../functions';
 
 
@@ -36,7 +35,7 @@ export default class RegisterPage extends Component {
     }
 
     async registerRequest(username, password) {
-        const reqURL = API_URL + "/user/register";
+        const reqURL = process.env.REACT_APP_API_URL + "/user/register";
         const reqOptions = {
             method: "POST",
             headers: { "Accept": "application/json", "Content-Type": "application/json"},

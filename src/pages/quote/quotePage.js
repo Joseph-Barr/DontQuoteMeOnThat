@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { API_URL } from '../../config';
 import { Row, Col, Jumbotron } from 'reactstrap';
 import QuoteCard from '../../components/quoteCard';
 
@@ -17,7 +16,7 @@ export default class QuotePage extends Component {
     }
 
     getRandomQuote() {
-        fetch(API_URL + "/quote/random")
+        fetch(process.env.REACT_APP_API_URL + "/quote/random")
         .then(res => res.json())
         .then(quote => {
             this.setState({
@@ -34,7 +33,7 @@ export default class QuotePage extends Component {
     }
 
     getQuoteList(limit) {
-        fetch(API_URL + '/quote')
+        fetch(process.env.REACT_APP_API_URL + '/quote')
         .then(res => res.json())
         .then(quotes => {
             this.setState({

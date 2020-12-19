@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Jumbotron, Button} from 'reactstrap';
-import { API_URL } from '../../config';
 
 export default class QuoteLinkPage extends Component {
     constructor(props) {
@@ -18,8 +17,8 @@ export default class QuoteLinkPage extends Component {
 
     getQuote() {
         let quoteID = window.location.pathname.split('/')[2];
-        console.log(API_URL + '/quote/' + quoteID);
-        fetch(API_URL + '/quote/' + quoteID)
+        console.log(process.env.REACT_APP_API_URL + '/quote/' + quoteID);
+        fetch(process.env.REACT_APP_API_URL + '/quote/' + quoteID)
         .then(res => res.json())
         .then(res => {
             this.setState({quote: res.quote})
